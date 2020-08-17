@@ -3,9 +3,9 @@ package com.fabrakadabra.webapp.service;
 import com.fabrakadabra.webapp.dto.AdminLoginRequest;
 import com.fabrakadabra.webapp.dto.AdminRegisterRequest;
 import com.fabrakadabra.webapp.dto.AuthenticationResponse;
+import com.fabrakadabra.webapp.dto.RefreshTokenRequest;
 import com.fabrakadabra.webapp.exception.SpringFabrakadabraException;
 import com.fabrakadabra.webapp.model.Admin;
-import com.fabrakadabra.webapp.model.NotificationEmail;
 import com.fabrakadabra.webapp.model.VerificationToken;
 import com.fabrakadabra.webapp.repository.AdminRepository;
 import com.fabrakadabra.webapp.repository.VerificationTokenRepository;
@@ -31,6 +31,7 @@ public class AdminAuthService {
     private final MailService mailService;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
+    private final RefreshTokenService refreshTokenService;
 
     @Transactional
     public void signup(AdminRegisterRequest adminRegisterRequest){
@@ -80,6 +81,22 @@ public class AdminAuthService {
                 loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         String token = jwtProvider.generateToken(authenticate);
-        return new AuthenticationResponse(token,loginRequest.getName());
+        return AuthenticationResponse.builder()
+                .authenticationToken(token)
+                .refreshToken(refreshTokenService.generataRefreshToken().getToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationMillis()))
+                .adminName(loginRequest.getName())
+                .build();
+    }
+
+    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        String token = jwtProvider.generateTokenWithUserName(refreshTokenRequest.getAdminName());
+        return AuthenticationResponse.builder()
+                .authenticationToken(token)
+                .refreshToken(refreshTokenRequest.getRefreshToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationMillis()))
+                .adminName(refreshTokenRequest.getAdminName())
+                .build();
     }
 }
