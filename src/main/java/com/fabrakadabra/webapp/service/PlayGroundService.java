@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class PlayGroundService {
     private final PlayGroundRepository playGroundRepository;
 
-    @Transactional()
+    @Transactional
     public List<PlayGroundDto> getAll(){
         return playGroundRepository.findAll()
                 .stream()
@@ -32,6 +32,7 @@ public class PlayGroundService {
                 .build();
     }
 
+    @Transactional
     public PlayGroundDto save(PlayGroundDto playGroundDto){
         PlayGround save = playGroundRepository.save(mapPlaygroundDto(playGroundDto));
         playGroundDto.setId(save.getId());
@@ -46,5 +47,25 @@ public class PlayGroundService {
                 .price(playGroundDto.getPrice())
                 .createdAt(Instant.now())
                 .build();
+    }
+
+    @Transactional
+    public PlayGroundDto getPlaygroundById(Long id) {
+        return mapToDto(playGroundRepository.findById(id).get());
+    }
+
+    @Transactional
+    public PlayGroundDto editPlayground(PlayGroundDto playGroundDto) {
+        Long id = playGroundDto.getId();
+        PlayGround playGround = playGroundRepository.findById(id).get();
+        playGround.setName(playGroundDto.getName());
+        playGround.setPictureURL(playGroundDto.getPictureURL());
+        playGround.setPrice(playGroundDto.getPrice());
+        return mapToDto(playGroundRepository.save(playGround));
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        playGroundRepository.deleteById(id);
     }
 }

@@ -28,4 +28,25 @@ public class PlayGroundController {
                 .status(HttpStatus.CREATED)
                 .body(playGroundService.save(playGroundDto));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PlayGroundDto> getPlayground(@PathVariable Long id){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(playGroundService.getPlaygroundById(id));
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity<PlayGroundDto> editPlayground(@RequestBody PlayGroundDto playGroundDto){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(playGroundService.editPlayground(playGroundDto));
+    }
+
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<String> deletePlayground(@PathVariable Long id){
+        playGroundService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Playground " + id + " succesfully deleted!!");
+    }
 }
