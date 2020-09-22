@@ -1,28 +1,22 @@
 package com.fabrakadabra.webapp.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.List;
-
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PlayGround {
+public class PlayGroundImg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private Integer price;
-    private Instant createdAt;
-    @OneToMany
-    private List<PlayGroundImg> playGroundImgs;
+    private String URL;
+    @ManyToOne
+    private PlayGround playGround;
 }

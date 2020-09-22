@@ -1,13 +1,17 @@
 package com.fabrakadabra.webapp.service;
 
 import com.fabrakadabra.webapp.dto.PlayGroundDto;
+import com.fabrakadabra.webapp.dto.PlayGroundImgDTO;
 import com.fabrakadabra.webapp.model.PlayGround;
+import com.fabrakadabra.webapp.model.PlayGroundImg;
+import com.fabrakadabra.webapp.repository.PlayGroundImgRepository;
 import com.fabrakadabra.webapp.repository.PlayGroundRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +19,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PlayGroundService {
     private final PlayGroundRepository playGroundRepository;
+    private final PlayGroundImgRepository playGroundImgRepository;
 
     @Transactional
     public List<PlayGroundDto> getAll(){
@@ -27,15 +32,48 @@ public class PlayGroundService {
     private PlayGroundDto mapToDto(PlayGround playGround) {
         return PlayGroundDto.builder().name(playGround.getName())
                 .id(playGround.getId())
-                .pictureURL(playGround.getPictureURL())
+                .playGroundImgs(mapToPlayGroundImgDto(playGround.getPlayGroundImgs()))
                 .price(playGround.getPrice())
                 .build();
+    }
+
+    private List<PlayGroundImgDTO> mapToPlayGroundImgDto(List<PlayGroundImg> playGroundImgs){
+        List<PlayGroundImgDTO> dtos = new ArrayList<>();
+        for (PlayGroundImg playGroundImg : playGroundImgs) {
+            dtos.add(PlayGroundImgDTO.builder()
+            .ID(playGroundImg.getId())
+            .URL(playGroundImg.getURL())
+            .build());
+        }
+        return dtos;
+    }
+
+    private List<PlayGroundImg> mapToPlaygroundImg(List<PlayGroundImgDTO> playGroundImgDTOS){
+        List<PlayGroundImg> playGroundImgs = new ArrayList<>();
+        for(PlayGroundImgDTO dto : playGroundImgDTOS){
+            playGroundImgs.add(PlayGroundImg.builder()
+            .id(dto.getID())
+            .URL(dto.getURL())
+            .build());
+        }
+        return playGroundImgs;
     }
 
     @Transactional
     public PlayGroundDto save(PlayGroundDto playGroundDto){
         PlayGround save = playGroundRepository.save(mapPlaygroundDto(playGroundDto));
         playGroundDto.setId(save.getId());
+        List<PlayGroundImg> imgs = mapToPlaygroundImg(playGroundDto.getPlayGroundImgs());
+        for(PlayGroundImg img : imgs){
+            PlayGroundImg imgToSave = playGroundImgRepository.save(img);
+            imgToSave.setPlayGround(save);
+            playGroundImgRepository.save(imgToSave);
+            for(PlayGroundImgDTO dto : playGroundDto.getPlayGroundImgs()){
+                dto.setID(imgToSave.getId());
+            }
+        }
+        save.setPlayGroundImgs(imgs);
+        playGroundRepository.save(save);
         return playGroundDto;
     }
 
@@ -43,11 +81,12 @@ public class PlayGroundService {
         return PlayGround.builder()
                 .id(playGroundDto.getId())
                 .name(playGroundDto.getName())
-                .pictureURL(playGroundDto.getPictureURL())
+                .playGroundImgs(mapToPlaygroundImg(playGroundDto.getPlayGroundImgs()))
                 .price(playGroundDto.getPrice())
                 .createdAt(Instant.now())
                 .build();
     }
+
 
     @Transactional
     public PlayGroundDto getPlaygroundById(Long id) {
@@ -59,7 +98,7 @@ public class PlayGroundService {
         Long id = playGroundDto.getId();
         PlayGround playGround = playGroundRepository.findById(id).get();
         playGround.setName(playGroundDto.getName());
-        playGround.setPictureURL(playGroundDto.getPictureURL());
+        playGround.setPlayGroundImgs(mapToPlaygroundImg(playGroundDto.getPlayGroundImgs()));
         playGround.setPrice(playGroundDto.getPrice());
         return mapToDto(playGroundRepository.save(playGround));
     }
