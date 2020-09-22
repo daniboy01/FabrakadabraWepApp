@@ -45,7 +45,7 @@ public class AdminAuthService {
         adminRepository.save(admin);
 
         String token = generateVerificationToken(admin);
-        System.out.println("http://localhost:8080/api/adminauth/accountVerification/" + token);
+        System.out.println("http://localhost:8080/api/adminauth/adminVerification/" + token);
 
 //        mailService.sendMail(new NotificationEmail("Please Activate your Account",
 //                admin.getEmail(), "Please activate your admin account clicking the link below " +
