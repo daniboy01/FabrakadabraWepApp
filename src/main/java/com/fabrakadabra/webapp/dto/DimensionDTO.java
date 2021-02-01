@@ -17,5 +17,5 @@ public class DimensionDTO {
     private double depthInMetre;
     private double weightInKg;
     private String material;
-    private PlayGround playGround;
+    private Long playGroundID;
 }

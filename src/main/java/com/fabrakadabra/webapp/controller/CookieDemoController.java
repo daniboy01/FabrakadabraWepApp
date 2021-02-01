@@ -46,9 +46,11 @@ public class CookieDemoController {
     @GetMapping("/addALot")
     public ResponseEntity<String> addDtos(HttpServletResponse response) throws UnsupportedEncodingException {
         List<PlayGroundDto>dtos = new ArrayList<>();
-        dtos.add(new PlayGroundDto(Integer.toUnsignedLong(11),"demo11",new ArrayList<>(),11));
-        dtos.add(new PlayGroundDto(Integer.toUnsignedLong(12),"demo12",new ArrayList<>(),11));
-        dtos.add(new PlayGroundDto(Integer.toUnsignedLong(13),"demo13",new ArrayList<>(),11));
+        //PlayGroundDto class has changed!!!!!
+
+        //dtos.add(new PlayGroundDto(Integer.toUnsignedLong(11),"demo11",new ArrayList<>(),11));
+        //dtos.add(new PlayGroundDto(Integer.toUnsignedLong(12),"demo12",new ArrayList<>(),11));
+        //dtos.add(new PlayGroundDto(Integer.toUnsignedLong(13),"demo13",new ArrayList<>(),11));
         Cookie cookiePlaygrounds = new Cookie("playgrounds", URLEncoder.encode(gson.toJson(dtos),"UTF-8"));
         response.addCookie(cookiePlaygrounds);
         return ResponseEntity.status(HttpStatus.OK)

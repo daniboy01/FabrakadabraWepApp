@@ -1,9 +1,12 @@
 package com.fabrakadabra.webapp.service;
 
+import com.fabrakadabra.webapp.dto.DimensionDTO;
 import com.fabrakadabra.webapp.dto.PlayGroundDto;
 import com.fabrakadabra.webapp.dto.PlayGroundImgDTO;
+import com.fabrakadabra.webapp.model.Dimensions;
 import com.fabrakadabra.webapp.model.PlayGround;
 import com.fabrakadabra.webapp.model.PlayGroundImg;
+import com.fabrakadabra.webapp.repository.DimensionsRepository;
 import com.fabrakadabra.webapp.repository.PlayGroundImgRepository;
 import com.fabrakadabra.webapp.repository.PlayGroundRepository;
 import lombok.AllArgsConstructor;
@@ -20,6 +23,7 @@ import java.util.stream.Collectors;
 public class PlayGroundService {
     private final PlayGroundRepository playGroundRepository;
     private final PlayGroundImgRepository playGroundImgRepository;
+    private final DimensionsRepository dimensionsRepository;
 
     @Transactional
     public List<PlayGroundDto> getAll(){
@@ -34,6 +38,7 @@ public class PlayGroundService {
                 .id(playGround.getId())
                 .playGroundImgs(mapToPlayGroundImgDto(playGround.getPlayGroundImgs()))
                 .price(playGround.getPrice())
+                .descripton(playGround.getDescripton())
                 .build();
     }
 
@@ -76,6 +81,8 @@ public class PlayGroundService {
         playGroundRepository.save(save);
         return playGroundDto;
     }
+
+
 
     private PlayGround mapPlaygroundDto(PlayGroundDto playGroundDto) {
         return PlayGround.builder()

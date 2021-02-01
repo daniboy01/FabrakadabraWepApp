@@ -20,5 +20,5 @@ public class PlayGroundDto {
         private Integer price;
         private String descripton;
         private List<PlayGroundImgDTO> playGroundImgs;
-        private Dimensions dimensions;
+        private DimensionDTO dimensions;
 }
