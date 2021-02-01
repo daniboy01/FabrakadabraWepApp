@@ -1,5 +1,6 @@
 package com.fabrakadabra.webapp.dto;
 
+import com.fabrakadabra.webapp.model.Dimensions;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,8 @@ import java.util.List;
 public class PlayGroundDto {
         private Long id;
         private String name;
-        private List<PlayGroundImgDTO> playGroundImgs;
         private Integer price;
-
+        private String descripton;
+        private List<PlayGroundImgDTO> playGroundImgs;
+        private Dimensions dimensions;
 }
