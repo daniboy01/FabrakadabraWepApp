@@ -33,12 +33,25 @@ public class PlayGroundService {
                 .collect(Collectors.toList());
     }
 
-    private PlayGroundDto mapToDto(PlayGround playGround) {
+    public PlayGroundDto mapToDto(PlayGround playGround) {
         return PlayGroundDto.builder().name(playGround.getName())
                 .id(playGround.getId())
                 .playGroundImgs(mapToPlayGroundImgDto(playGround.getPlayGroundImgs()))
                 .price(playGround.getPrice())
                 .descripton(playGround.getDescripton())
+                .dimensions(mapDimensionsDto(playGround.getDimensions(),playGround))
+                .build();
+    }
+
+    private DimensionDTO mapDimensionsDto(Dimensions dimensions,PlayGround playGround){
+        return DimensionDTO.builder()
+                .ID(dimensions.getID())
+                .heightInMetre(dimensions.getHeightInMetre())
+                .weightInKg(dimensions.getWeightInKg())
+                .widthInMetre(dimensions.getWidthInMetre())
+                .material(dimensions.getMaterial())
+                .depthInMetre(dimensions.getDepthInMetre())
+                .playGroundID(playGround.getId())
                 .build();
     }
 
@@ -81,8 +94,6 @@ public class PlayGroundService {
         playGroundRepository.save(save);
         return playGroundDto;
     }
-
-
 
     private PlayGround mapPlaygroundDto(PlayGroundDto playGroundDto) {
         return PlayGround.builder()
