@@ -14,5 +14,5 @@ import java.util.UUID;
 public class OrderResponse {
     private Long id;
     private String responseMessage;
-    private UUID orderID;
+    private Long orderID;
 }

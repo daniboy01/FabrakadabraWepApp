@@ -18,8 +18,10 @@ import java.util.UUID;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID ID;
+    private Long ID;
     @OneToMany
     private List<OrderItem> orderItems;
     private Instant createdAt;
+    @OneToOne
+    private Customer customer;
 }

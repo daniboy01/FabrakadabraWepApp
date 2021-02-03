@@ -17,8 +17,10 @@ import java.util.UUID;
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID ID;
+    private Long Id;
     @OneToOne
     private PlayGround playGround;
     private Instant createdAt;
+    @ManyToOne
+    private Order order;
 }

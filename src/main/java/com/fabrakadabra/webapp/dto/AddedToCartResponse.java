@@ -11,7 +11,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderItemDto {
-    private Long id;
-    private Long playGroundId;
+public class AddedToCartResponse {
+    private UUID id;
+    private String responseMessage;
+
+    public AddedToCartResponse(String message){
+        id = UUID.randomUUID();
+        responseMessage = message;
+    }
 }

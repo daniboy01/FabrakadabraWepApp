@@ -19,7 +19,7 @@ import java.util.UUID;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID ID;
+    private Long ID;
     private String firstName;
     private String lastName;
     private String email;
