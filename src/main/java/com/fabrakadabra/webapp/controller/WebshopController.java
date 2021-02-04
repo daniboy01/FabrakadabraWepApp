@@ -2,6 +2,7 @@ package com.fabrakadabra.webapp.controller;
 import com.fabrakadabra.webapp.dto.AddedToCartResponse;
 import com.fabrakadabra.webapp.dto.OrderDto;
 import com.fabrakadabra.webapp.dto.OrderItemDto;
+import com.fabrakadabra.webapp.dto.OrderResponse;
 import com.fabrakadabra.webapp.service.WebshopService;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
@@ -40,10 +41,11 @@ public class WebshopController {
                 .body(webshopService.removeFromCart(response,orderItemDto,items));
     }
 
-    //make order
-    public ResponseEntity<String> makeOrder(HttpServletResponse response,
-                                            @RequestBody OrderDto orderDto){
-        return null;
+    @PostMapping("/sendOrder")
+    public ResponseEntity<OrderResponse> makeOrder(HttpServletResponse response,
+                                                   @RequestBody OrderDto orderDto){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(webshopService.makeOrder(response,orderDto));
     }
 
 

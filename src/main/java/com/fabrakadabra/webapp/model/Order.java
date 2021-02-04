@@ -15,6 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "RENDELÉS")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

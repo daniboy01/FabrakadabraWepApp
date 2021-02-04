@@ -9,10 +9,13 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class OrderResponse {
-    private Long id;
     private String responseMessage;
     private Long orderID;
+
+    public OrderResponse(String responseMessage, Long orderID) {
+        this.responseMessage = responseMessage;
+        this.orderID = orderID;
+    }
 }

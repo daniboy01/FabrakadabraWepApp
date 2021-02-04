@@ -34,25 +34,40 @@ public class PlayGroundService {
     }
 
     public PlayGroundDto mapToDto(PlayGround playGround) {
-        return PlayGroundDto.builder().name(playGround.getName())
-                .id(playGround.getId())
-                .playGroundImgs(mapToPlayGroundImgDto(playGround.getPlayGroundImgs()))
-                .price(playGround.getPrice())
-                .descripton(playGround.getDescripton())
-                .dimensions(mapDimensionsDto(playGround.getDimensions(),playGround))
-                .build();
+        if(playGround.getDimensions() == null){
+            return PlayGroundDto.builder().name(playGround.getName())
+                    .id(playGround.getId())
+                    .playGroundImgs(mapToPlayGroundImgDto(playGround.getPlayGroundImgs()))
+                    .price(playGround.getPrice())
+                    .descripton(playGround.getDescripton())
+                    .dimensions(null)
+                    .build();
+        }
+        else {
+            return PlayGroundDto.builder().name(playGround.getName())
+                    .id(playGround.getId())
+                    .playGroundImgs(mapToPlayGroundImgDto(playGround.getPlayGroundImgs()))
+                    .price(playGround.getPrice())
+                    .descripton(playGround.getDescripton())
+                    .dimensions(mapDimensionsDto(playGround.getDimensions(),playGround))
+                    .build();
+        }
     }
 
     private DimensionDTO mapDimensionsDto(Dimensions dimensions,PlayGround playGround){
-        return DimensionDTO.builder()
-                .ID(dimensions.getID())
-                .heightInMetre(dimensions.getHeightInMetre())
-                .weightInKg(dimensions.getWeightInKg())
-                .widthInMetre(dimensions.getWidthInMetre())
-                .material(dimensions.getMaterial())
-                .depthInMetre(dimensions.getDepthInMetre())
-                .playGroundID(playGround.getId())
-                .build();
+        if (dimensions.getID() == null) return null;
+        else {
+            return DimensionDTO.builder()
+                    .ID(dimensions.getID())
+                    .heightInMetre(dimensions.getHeightInMetre())
+                    .weightInKg(dimensions.getWeightInKg())
+                    .widthInMetre(dimensions.getWidthInMetre())
+                    .material(dimensions.getMaterial())
+                    .depthInMetre(dimensions.getDepthInMetre())
+                    .playGroundID(playGround.getId())
+                    .build();
+        }
+
     }
 
     private List<PlayGroundImgDTO> mapToPlayGroundImgDto(List<PlayGroundImg> playGroundImgs){

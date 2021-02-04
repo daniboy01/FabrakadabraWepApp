@@ -1,9 +1,12 @@
 package com.fabrakadabra.webapp.service;
 
-import com.fabrakadabra.webapp.dto.AddedToCartResponse;
-import com.fabrakadabra.webapp.dto.OrderItemDto;
+import com.fabrakadabra.webapp.dto.*;
+import com.fabrakadabra.webapp.model.Customer;
+import com.fabrakadabra.webapp.model.Order;
 import com.fabrakadabra.webapp.model.OrderItem;
+import com.fabrakadabra.webapp.repository.CustomerRepository;
 import com.fabrakadabra.webapp.repository.OrderItemRepository;
+import com.fabrakadabra.webapp.repository.OrderRepository;
 import com.fabrakadabra.webapp.repository.PlayGroundRepository;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +27,8 @@ import java.util.UUID;
 public class WebshopService {
     private OrderItemRepository orderItemRepository;
     private PlayGroundRepository playGroundRepository;
+    private OrderRepository orderRepository;
+    private CustomerRepository customerRepository;
     private Gson gson;
 
     public AddedToCartResponse addToShoppingCart(HttpServletResponse response, List<OrderItemDto> orderItemDtos) {
@@ -60,5 +66,45 @@ public class WebshopService {
         }
         response.addCookie(new Cookie("cart",URLEncoder.encode(gson.toJson(dtos))));
         return dtos;
+    }
+
+
+    public OrderResponse makeOrder(HttpServletResponse response, OrderDto orderDto) {
+        Customer saveCutomer = customerRepository.save(mapCustomerDtotoModel(orderDto.getCustomerDto()));
+        Order saveOrder = mapOrderDtotoModel(orderDto);
+        saveOrder.setCustomer(saveCutomer);
+        orderRepository.save(saveOrder);
+
+
+         response.addCookie(new Cookie("cart",null));
+         return new OrderResponse("Number " + saveOrder.getID() + " order recieved!",saveOrder.getID());
+    }
+
+    private Order mapOrderDtotoModel(OrderDto dto){
+        return Order.builder()
+                .ID(dto.getId())
+                .createdAt(Instant.now())
+                .customer(mapCustomerDtotoModel(dto.getCustomerDto()))
+                .orderItems(mapOrderItemsToModels(dto.getOrderItems()))
+                .build();
+    }
+
+    private List<OrderItem> mapOrderItemsToModels(List<OrderItemDto> orderItems) {
+        List<OrderItem> items = new ArrayList<>();
+        for (OrderItemDto dto : orderItems) {
+            items.add(mapOrderItemDtoToModel(dto));
+        }
+        return items;
+    }
+
+    private Customer mapCustomerDtotoModel(CustomerDto customerDto) {
+        return Customer.builder()
+                .address(customerDto.getAddress())
+                .email(customerDto.getEmail())
+                .firstName(customerDto.getFirstName())
+                .lastName(customerDto.getLastName())
+                .phoneNumber(customerDto.getPhoneNumber())
+                .build();
+
     }
 }

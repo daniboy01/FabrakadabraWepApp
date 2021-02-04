@@ -27,7 +27,7 @@ public class PlayGroundController {
     @PostMapping("/createPlayground")
     public ResponseEntity<PlayGroundDto> createPlayground(HttpServletResponse response, @RequestBody PlayGroundDto playGroundDto){
         return ResponseEntity
-                .status(HttpStatus.CREATED)
+                .status(HttpStatus.OK)
                 .body(playGroundService.save(playGroundDto));
     }
 
