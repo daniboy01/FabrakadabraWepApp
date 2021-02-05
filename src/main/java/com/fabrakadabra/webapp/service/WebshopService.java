@@ -19,8 +19,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+
 
 @Service
 @AllArgsConstructor
@@ -29,6 +30,7 @@ public class WebshopService {
     private PlayGroundRepository playGroundRepository;
     private OrderRepository orderRepository;
     private CustomerRepository customerRepository;
+    private EmailService emailService;
     private Gson gson;
 
     public AddedToCartResponse addToShoppingCart(HttpServletResponse response, List<OrderItemDto> orderItemDtos) {
@@ -75,9 +77,13 @@ public class WebshopService {
         saveOrder.setCustomer(saveCutomer);
         orderRepository.save(saveOrder);
 
+        HashMap<String, Object> model = new HashMap<>();
+        model.put("Name",saveCutomer.getFirstName() + " " +saveCutomer.getLastName());
 
-         response.addCookie(new Cookie("cart",null));
-         return new OrderResponse("Number " + saveOrder.getID() + " order recieved!",saveOrder.getID());
+
+        emailService.sendEmail(saveCutomer.getEmail(),"Működik az email rendszer! \n Dani ","FAbrakadabra",model);
+        response.addCookie(new Cookie("cart",null));
+        return new OrderResponse("Number " + saveOrder.getID() + " order recieved!",saveOrder.getID());
     }
 
     private Order mapOrderDtotoModel(OrderDto dto){

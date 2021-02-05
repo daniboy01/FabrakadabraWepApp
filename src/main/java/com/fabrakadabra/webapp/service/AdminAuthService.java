@@ -28,7 +28,6 @@ public class AdminAuthService {
     private final PasswordEncoder passwordEncoder;
     private final AdminRepository adminRepository;
     private final VerificationTokenRepository verificationTokenRepository;
-    private final MailService mailService;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
