@@ -1,41 +1,79 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Java Techie Mail</title>
+    <title>Email template</title>
 </head>
-
 <body>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-        <td align="center" valign="top" bgcolor="#838383"
-            style="background-color: #838383;"><br> <br>
-            <table width="600" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td align="center" valign="top" bgcolor="#d3be6c"
-                        style="background-color: #d3be6c; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #000000; padding: 0px 15px 10px 15px;">
+<center class="wrapper">
+    <table class="main" width="80%">
 
-                        <div style="font-size: 48px; color:blue;">
-                            <b>Java Techie</b>
-                        </div>
+        <tr>
+            <td height="8px" style="background-color: chartreuse"></td>
+        </tr>
 
-                        <div style="font-size: 24px; color: #555100;">
-                            <br> Sending Email using Spring Boot with <b>FreeMarker</b>
-                                template !!! <br>
-                        </div>
-                        <div>
-                            <br> Java Techie is a channel where we create and publish
-                            videos on<br> 'how to' about latest technology trends like<br>
-                            spring ,spring boot ,hibernate , web services and micro service
-                            <br> ""This channel is created to share the knowledge and
-                            to gain the knowledge"<br>
-                            <br>"Sharing the knowledge is biggest learning" <br> <br>
-                            <br> <br> <b>${Name}</b>
-                            <br>
-                        </div>
-                    </td>
-                </tr>
-            </table> <br> <br></td>
-    </tr>
-</table>
+        <tr>
+            <td>
+                <p>FAbrakadabra játszóterek</p>
+                <h2>Kedves, ${firstName}</h2>
+                <p>Köszönjük a vásárlását a FAbrakadabra webáruházában, nagyon örülünk, hogy minket válaszott.
+                    Rendelését rendszerünk rögzítette, munkatársunk hamarosan felveszi önnel a kapcsolatot, hogy
+                    egyeztessen a telepítés és szállítás részleteiről.
+
+                    Ha bármilyen kérdése lenne a rendeléssel kapcsolatban, a <p>info@fabrakadabra.hu</p> címen léphet velünk
+                    kapcsolatba.
+                </p>
+
+                <div>
+                    <h2>Rendelés ${orderID}</h2>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td height="4px" style="background-color: chartreuse"></td>
+        </tr>
+        <tr>
+            <td>
+                <h3>Rendelés rögzítve ekkor: ${createdAt}</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h3 style="float: left">Számlázási cím:</h3>
+                <h3 style="float: right">Szállítási cím:</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <ul style="float:left;list-style: none">
+                    <li>
+                        <a>${Name}</a>
+                    </li>
+                    <li>
+                        <a>${Address}</a>
+                    </li>
+                    <li>
+                        <a>${PhoneNum}</a>
+                    </li>
+                </ul>
+                <ul style="float:right;list-style: none" >
+                    <li>
+                        <a>${Name}</a>
+                    </li>
+                    <li>
+                        <a>${Address}</a>
+                    </li>
+                    <li>
+                        <a>${PhoneNum}</a>
+                    </li>
+                </ul>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+
+    </table>
+</center>
 </body>
 </html>
+

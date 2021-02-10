@@ -78,10 +78,14 @@ public class WebshopService {
         orderRepository.save(saveOrder);
 
         HashMap<String, Object> model = new HashMap<>();
+        model.put("orderID",saveOrder.getID());
         model.put("Name",saveCutomer.getFirstName() + " " +saveCutomer.getLastName());
+        model.put("Address",saveCutomer.getAddress());
+        model.put("PhoneNum",saveCutomer.getPhoneNumber());
+        model.put("createdAt",saveOrder.getCreatedAt());
+        model.put("firstName",saveCutomer.getFirstName());
 
-
-        emailService.sendEmail(saveCutomer.getEmail(),"Működik az email rendszer! \n Dani ","FAbrakadabra",model);
+        emailService.sendEmail(saveCutomer.getEmail(),"FAbrakadabra",model);
         response.addCookie(new Cookie("cart",null));
         return new OrderResponse("Number " + saveOrder.getID() + " order recieved!",saveOrder.getID());
     }

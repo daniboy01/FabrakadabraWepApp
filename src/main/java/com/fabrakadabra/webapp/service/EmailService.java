@@ -5,7 +5,6 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.AllArgsConstructor;
 
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -23,9 +22,11 @@ public class EmailService {
     private JavaMailSender javaMailSender;
     private Configuration configuration;
 
-    public void sendEmail(String to, String text, String subject, HashMap<String, Object> model){
+    public void sendEmail(String to, String subject, HashMap<String, Object> model){
         MimeMessage mailMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mailMessage,"utf-8");
+
+
         try {
             Template t = configuration.getTemplate("email-template.ftl");
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(t,model);

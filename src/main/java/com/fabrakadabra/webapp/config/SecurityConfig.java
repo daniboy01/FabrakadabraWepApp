@@ -38,8 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/uploadImage")
                 .permitAll()
-                .antMatchers("/cookies/**")
-                .permitAll()
                 .antMatchers("/api/playground/**")
                 .permitAll();
         httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

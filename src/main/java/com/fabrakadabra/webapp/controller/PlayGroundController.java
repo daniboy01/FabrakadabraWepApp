@@ -6,9 +6,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -25,7 +22,7 @@ public class PlayGroundController {
     }
 
     @PostMapping("/createPlayground")
-    public ResponseEntity<PlayGroundDto> createPlayground(HttpServletResponse response, @RequestBody PlayGroundDto playGroundDto){
+    public ResponseEntity<PlayGroundDto> createPlayground(@RequestBody PlayGroundDto playGroundDto){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(playGroundService.save(playGroundDto));
