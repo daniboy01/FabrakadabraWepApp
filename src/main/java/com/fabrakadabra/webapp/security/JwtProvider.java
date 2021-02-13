@@ -36,7 +36,6 @@ public class JwtProvider {
         } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException e) {
             throw new SpringFabrakadabraException("Exception occurred while loading keystore");
         }
-        System.out.println("Eddig lefut!!!!!!!");
 
     }
 
