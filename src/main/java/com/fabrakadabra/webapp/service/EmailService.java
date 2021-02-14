@@ -40,4 +40,20 @@ public class EmailService {
 
         javaMailSender.send(mailMessage);
     }
+    public void sendEmailAdmin(String to, String subject, String text){
+        MimeMessage mailMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mailMessage,"utf-8");
+
+
+        try {
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(text);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+
+        javaMailSender.send(mailMessage);
+    }
 }

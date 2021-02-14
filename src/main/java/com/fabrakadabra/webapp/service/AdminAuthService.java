@@ -31,6 +31,7 @@ public class AdminAuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
+    private final EmailService emailService;
 
     @Transactional
     public void signup(AdminRegisterRequest adminRegisterRequest){
@@ -44,7 +45,9 @@ public class AdminAuthService {
         adminRepository.save(admin);
 
         String token = generateVerificationToken(admin);
-        System.out.println("http://localhost:8080/api/adminauth/adminVerification/" + token);
+        String verificationUrl = "https://185.203.117.142:8443/api/adminauth/adminVerification/" + token;
+
+        emailService.sendEmailAdmin(adminRegisterRequest.getEmail(),"admin verification", verificationUrl);
 
 //        mailService.sendMail(new NotificationEmail("Please Activate your Account",
 //                admin.getEmail(), "Please activate your admin account clicking the link below " +
