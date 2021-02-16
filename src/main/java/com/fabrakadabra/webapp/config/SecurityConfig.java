@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/api/playground/getAll")
                 .permitAll()
-                .antMatchers("/uploadImage")
+                .antMatchers("/uploadImage/**")
                 .authenticated()
                 .antMatchers("/api/playground/**")
                 .authenticated();
