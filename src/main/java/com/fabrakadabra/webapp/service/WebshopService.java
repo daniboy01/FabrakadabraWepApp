@@ -17,10 +17,16 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 @Service
@@ -76,13 +82,17 @@ public class WebshopService {
         Order saveOrder = mapOrderDtotoModel(orderDto);
         saveOrder.setCustomer(saveCutomer);
         orderRepository.save(saveOrder);
+        DateTimeFormatter dateFormat = DateTimeFormatter
+                .ofLocalizedDate(FormatStyle.SHORT)
+                .withLocale(Locale.ITALY)
+                .withZone(ZoneId.systemDefault());
 
         HashMap<String, Object> model = new HashMap<>();
         model.put("orderID",saveOrder.getID());
         model.put("Name",saveCutomer.getFirstName() + " " +saveCutomer.getLastName());
         model.put("Address",saveCutomer.getAddress());
         model.put("PhoneNum",saveCutomer.getPhoneNumber());
-        model.put("createdAt",saveOrder.getCreatedAt());
+        model.put("createdAt",dateFormat.format(saveOrder.getCreatedAt()));
         model.put("firstName",saveCutomer.getFirstName());
 
         emailService.sendEmail(saveCutomer.getEmail(),"FAbrakadabra",model);

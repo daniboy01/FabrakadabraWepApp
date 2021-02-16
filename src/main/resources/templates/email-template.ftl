@@ -24,7 +24,7 @@
                 </p>
 
                 <div>
-                    <h2>Rendelés ${orderID}</h2>
+                    <h2>Rendelés #${orderID}</h2>
                 </div>
             </td>
         </tr>
