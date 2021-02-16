@@ -1,17 +1,18 @@
 package com.fabrakadabra.webapp.security;
 
 import com.fabrakadabra.webapp.exception.SpringFabrakadabraException;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.*;
+import java.security.SignatureException;
 import java.security.cert.CertificateException;
 import java.sql.Date;
 import java.time.Instant;
@@ -67,9 +68,18 @@ public class JwtProvider {
         }
     }
 
-    public boolean validateToken(String jwt){
-        parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
-        return true;
+    public boolean validateToken(String jwt, HttpServletResponse response) throws IOException {
+        try {
+            parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
+            return true;
+        }catch (ExpiredJwtException ex){
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Jwt token expired!");
+        }catch (UnsupportedJwtException ex){
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Unsupported JWT exception");
+        }catch (IllegalArgumentException ex){
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Jwt claims string is empty");
+        }
+        return false;
     }
 
     private PublicKey getPublicKey() {
