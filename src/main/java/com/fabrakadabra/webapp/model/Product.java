@@ -16,7 +16,7 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
+    private Long ID;
     private String name;
     private String description;
     private int price;

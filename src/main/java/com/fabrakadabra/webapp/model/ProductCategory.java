@@ -18,6 +18,6 @@ import javax.persistence.Id;
 public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
+    private Long ID;
     private String name;
 }
