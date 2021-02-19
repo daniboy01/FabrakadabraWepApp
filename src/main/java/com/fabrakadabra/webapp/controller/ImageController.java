@@ -1,9 +1,11 @@
 package com.fabrakadabra.webapp.controller;
 
+import com.fabrakadabra.webapp.config.CrossOriginUrl;
 import com.fabrakadabra.webapp.service.ImageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -18,6 +20,7 @@ public class ImageController {
         this.imageService = imageService;
     }
 
+    @CrossOrigin(CrossOriginUrl.URl)
     @PostMapping("/uploadImage/{id}")
     public ResponseEntity<String> uploadImage(@RequestParam MultipartFile imageFile, @PathVariable Long id){
         try {

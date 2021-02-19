@@ -39,7 +39,7 @@ public class PlayGroundService {
                     .id(playGround.getId())
                     .playGroundImgs(mapToPlayGroundImgDto(playGround.getPlayGroundImgs()))
                     .price(playGround.getPrice())
-                    .descripton(playGround.getDescripton())
+                    .description(playGround.getDescripton())
                     .dimensions(null)
                     .build();
         }
@@ -48,7 +48,7 @@ public class PlayGroundService {
                     .id(playGround.getId())
                     .playGroundImgs(mapToPlayGroundImgDto(playGround.getPlayGroundImgs()))
                     .price(playGround.getPrice())
-                    .descripton(playGround.getDescripton())
+                    .description(playGround.getDescripton())
                     .dimensions(mapDimensionsDto(playGround.getDimensions(),playGround))
                     .build();
         }
@@ -130,6 +130,7 @@ public class PlayGroundService {
     public PlayGroundDto editPlayground(PlayGroundDto playGroundDto) {
         Long id = playGroundDto.getId();
         PlayGround playGround = playGroundRepository.findById(id).get();
+        playGround.setDescripton(playGroundDto.getDescription());
         playGround.setName(playGroundDto.getName());
         playGround.setPlayGroundImgs(mapToPlaygroundImg(playGroundDto.getPlayGroundImgs()));
         playGround.setPrice(playGroundDto.getPrice());

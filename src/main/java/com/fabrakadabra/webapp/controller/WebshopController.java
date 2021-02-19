@@ -1,4 +1,5 @@
 package com.fabrakadabra.webapp.controller;
+import com.fabrakadabra.webapp.config.CrossOriginUrl;
 import com.fabrakadabra.webapp.dto.AddedToCartResponse;
 import com.fabrakadabra.webapp.dto.OrderDto;
 import com.fabrakadabra.webapp.dto.OrderItemDto;
@@ -18,6 +19,7 @@ import java.util.List;
 public class WebshopController {
     private WebshopService webshopService;
 
+    @CrossOrigin(CrossOriginUrl.URl)
     @PostMapping("/addToCart")
     public ResponseEntity<AddedToCartResponse> addToCart(HttpServletResponse response,
                                                          @RequestBody List<OrderItemDto> orderItemDtos){
@@ -25,6 +27,7 @@ public class WebshopController {
                 .body(webshopService.addToShoppingCart(response,orderItemDtos));
     }
 
+    @CrossOrigin(CrossOriginUrl.URl)
     @GetMapping("/readCookies")
     public ResponseEntity<OrderItemDto[]> readCookies(@CookieValue("cart") String items){
         Gson gson = new Gson();
@@ -33,6 +36,7 @@ public class WebshopController {
                 .body(dtos);
     }
 
+    @CrossOrigin(CrossOriginUrl.URl)
     @PostMapping("/removeItem")
     public ResponseEntity<OrderItemDto[]> removeFromCart(HttpServletResponse response,
                                                  @RequestBody OrderItemDto orderItemDto,
@@ -41,6 +45,7 @@ public class WebshopController {
                 .body(webshopService.removeFromCart(response,orderItemDto,items));
     }
 
+    @CrossOrigin(CrossOriginUrl.URl)
     @PostMapping("/sendOrder")
     public ResponseEntity<OrderResponse> makeOrder(HttpServletResponse response,
                                                    @RequestBody OrderDto orderDto){

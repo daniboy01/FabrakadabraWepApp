@@ -48,10 +48,6 @@ public class AdminAuthService {
         String verificationUrl = "https://185.203.117.142:8443/api/adminauth/adminVerification/" + token;
 
         emailService.sendEmailAdmin(adminRegisterRequest.getEmail(),"admin verification", verificationUrl);
-
-//        mailService.sendMail(new NotificationEmail("Please Activate your Account",
-//                admin.getEmail(), "Please activate your admin account clicking the link below " +
-//                "http://localhost:8080/api/adminauth/accountVerification/" + token));
     }
 
     private String generateVerificationToken(Admin admin) {

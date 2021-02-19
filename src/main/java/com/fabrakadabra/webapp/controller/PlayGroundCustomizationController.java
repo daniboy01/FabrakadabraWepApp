@@ -1,5 +1,6 @@
 package com.fabrakadabra.webapp.controller;
 
+import com.fabrakadabra.webapp.config.CrossOriginUrl;
 import com.fabrakadabra.webapp.dto.DimensionDTO;
 import com.fabrakadabra.webapp.dto.PlayGroundDto;
 import com.fabrakadabra.webapp.service.PlayGroundCustomizationService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class PlayGroundCustomizationController {
     private PlayGroundCustomizationService playGroundCustomizationService;
 
+    @CrossOrigin(CrossOriginUrl.URl)
     @PutMapping("/{id}/dimensions")
     public ResponseEntity<PlayGroundDto> AddDimensionsToPlayGround(@RequestBody DimensionDTO dto, @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK)
