@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class PlayGroundService {
     private final PlayGroundRepository playGroundRepository;
     private final PlayGroundImgRepository playGroundImgRepository;
-    private final DimensionsRepository dimensionsRepository;
 
     @Transactional
     public List<PlayGroundDto> getAll(){
@@ -114,12 +113,12 @@ public class PlayGroundService {
         return PlayGround.builder()
                 .id(playGroundDto.getId())
                 .name(playGroundDto.getName())
+                .descripton(playGroundDto.getDescription())
                 .playGroundImgs(mapToPlaygroundImg(playGroundDto.getPlayGroundImgs()))
                 .price(playGroundDto.getPrice())
                 .createdAt(Instant.now())
                 .build();
     }
-
 
     @Transactional
     public PlayGroundDto getPlaygroundById(Long id) {
@@ -134,7 +133,8 @@ public class PlayGroundService {
         playGround.setName(playGroundDto.getName());
         playGround.setPlayGroundImgs(mapToPlaygroundImg(playGroundDto.getPlayGroundImgs()));
         playGround.setPrice(playGroundDto.getPrice());
-        return mapToDto(playGroundRepository.save(playGround));
+        playGroundRepository.save(playGround);
+        return playGroundDto;
     }
 
     @Transactional

@@ -32,6 +32,7 @@ public class AdminAuthService {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
     private final EmailService emailService;
+    private final String BASE_URL = "https://185.203.117.142:8443";
 
     @Transactional
     public void signup(AdminRegisterRequest adminRegisterRequest){
@@ -45,7 +46,7 @@ public class AdminAuthService {
         adminRepository.save(admin);
 
         String token = generateVerificationToken(admin);
-        String verificationUrl = "https://185.203.117.142:8443/api/adminauth/adminVerification/" + token;
+        String verificationUrl = BASE_URL + "/api/adminauth/adminVerification/" + token;
 
         emailService.sendEmailAdmin(adminRegisterRequest.getEmail(),"admin verification", verificationUrl);
     }
