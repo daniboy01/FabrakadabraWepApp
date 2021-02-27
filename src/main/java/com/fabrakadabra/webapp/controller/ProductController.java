@@ -1,10 +1,14 @@
 package com.fabrakadabra.webapp.controller;
 
+import com.fabrakadabra.webapp.dto.ProductDto;
+import com.fabrakadabra.webapp.model.Product;
 import com.fabrakadabra.webapp.service.ProductService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
@@ -13,7 +17,26 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/getAll")
-    public String getAllProduct(){
-        return "";
+    public ResponseEntity<List<ProductDto>> getAllProduct(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(productService.getAll());
+    }
+
+    @PostMapping("/createNewProduct")
+    public ResponseEntity<ProductDto> createNewProduct(@RequestBody ProductDto dto){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(productService.createNewProduct(dto));
+    }
+
+    @PutMapping("/updateProduct")
+    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto dto){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(productService.updateProduct(dto));
+    }
+
+    @PostMapping("/deleteProduct")
+    public ResponseEntity<String> deleteProduct(@RequestBody ProductDto dto){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(productService.deleteProduct(dto));
     }
 }

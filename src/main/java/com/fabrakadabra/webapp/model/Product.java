@@ -21,7 +21,7 @@ public class Product {
     private String name;
     private String description;
     private int price;
-    @OneToMany
-    private List<ProductImg> img;
-    private long cateogryID;
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<ProductImg> images;
+    private long categoryID;
 }
