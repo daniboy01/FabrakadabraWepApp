@@ -13,5 +13,5 @@ import java.util.UUID;
 @Builder
 public class OrderItemDto {
     private Long id;
-    private Long playGroundId;
+    private Long productId;
 }

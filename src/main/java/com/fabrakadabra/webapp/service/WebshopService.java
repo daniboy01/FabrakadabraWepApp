@@ -4,10 +4,7 @@ import com.fabrakadabra.webapp.dto.*;
 import com.fabrakadabra.webapp.model.Customer;
 import com.fabrakadabra.webapp.model.Order;
 import com.fabrakadabra.webapp.model.OrderItem;
-import com.fabrakadabra.webapp.repository.CustomerRepository;
-import com.fabrakadabra.webapp.repository.OrderItemRepository;
-import com.fabrakadabra.webapp.repository.OrderRepository;
-import com.fabrakadabra.webapp.repository.PlayGroundRepository;
+import com.fabrakadabra.webapp.repository.*;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;
@@ -34,6 +31,7 @@ import java.util.Locale;
 public class WebshopService {
     private OrderItemRepository orderItemRepository;
     private PlayGroundRepository playGroundRepository;
+    private ProductRepository productRepository;
     private OrderRepository orderRepository;
     private CustomerRepository customerRepository;
     private EmailService emailService;
@@ -59,7 +57,7 @@ public class WebshopService {
         return OrderItem.builder()
                 .Id(orderItemDto.getId())
                 .createdAt(Instant.now())
-                .playGround(playGroundRepository.findById(orderItemDto.getPlayGroundId()).get())
+                .productId(orderItemDto.getProductId())
                 .build();
     }
 
@@ -87,6 +85,12 @@ public class WebshopService {
                 .withLocale(Locale.ITALY)
                 .withZone(ZoneId.systemDefault());
 
+        String name = "";
+        for(OrderItemDto item : orderDto.getOrderItems()){
+            name += productRepository.findById(item.getId()).get().getName();
+        }
+
+
         HashMap<String, Object> model = new HashMap<>();
         model.put("orderID",saveOrder.getID());
         model.put("Name",saveCutomer.getFirstName() + " " +saveCutomer.getLastName());
@@ -94,6 +98,7 @@ public class WebshopService {
         model.put("PhoneNum",saveCutomer.getPhoneNumber());
         model.put("createdAt",dateFormat.format(saveOrder.getCreatedAt()));
         model.put("firstName",saveCutomer.getFirstName());
+        model.put("itemName",name);
 
         emailService.sendEmail(saveCutomer.getEmail(),"FAbrakadabra",model);
         response.addCookie(new Cookie("cart",null));

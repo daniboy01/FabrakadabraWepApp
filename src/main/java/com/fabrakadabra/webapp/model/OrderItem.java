@@ -18,8 +18,7 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    @OneToOne
-    private PlayGround playGround;
+    private Long productId;
     private Instant createdAt;
     @ManyToOne
     private Order order;
