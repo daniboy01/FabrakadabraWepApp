@@ -1,16 +1,7 @@
 package com.fabrakadabra.webapp.service;
 
-import com.fabrakadabra.webapp.model.PlayGround;
-import com.fabrakadabra.webapp.model.PlayGroundImg;
-import com.fabrakadabra.webapp.repository.PlayGroundImgRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Service
 @AllArgsConstructor

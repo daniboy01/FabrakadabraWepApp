@@ -18,11 +18,11 @@ public class ProductImg {
     private Long ID;
     private String URL;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private Product product;
 
-    public ProductImg(String URL, Product product) {
+    private long productId;
+
+    public ProductImg(String URL, long productId) {
         this.URL = URL;
-        this.product = product;
+        this.productId = productId;
     }
 }

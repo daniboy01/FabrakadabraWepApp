@@ -1,9 +1,6 @@
 package com.fabrakadabra.webapp.service;
 
-import com.fabrakadabra.webapp.dto.CreateProductDto;
-import com.fabrakadabra.webapp.dto.DimensionDTO;
-import com.fabrakadabra.webapp.dto.ProductDto;
-import com.fabrakadabra.webapp.dto.ProductImgDto;
+import com.fabrakadabra.webapp.dto.*;
 import com.fabrakadabra.webapp.model.Dimensions;
 import com.fabrakadabra.webapp.model.Product;
 import com.fabrakadabra.webapp.model.ProductCategory;
@@ -39,13 +36,16 @@ public class ProductService {
             throw new IllegalArgumentException("Dto is null or empty");
         }
 
-        Product save = new Product();
+        Product save = productRepository.save(new Product());
         save.setName(dto.getName());
         save.setPrice(dto.getPrice());
         save.setDescription(dto.getDescription());
         save.setCategory(ProductCategory.valueOf(dto.getCategory()));
-        save.setImages(saveNewImages(dto.getImages(),save));
-        save.setDimensions(saveNewDimensions(dto.getDimensions(),save));
+        saveNewDimensions(dto.getDimensions(),save);
+        saveNewImages(dto.getImages(), save);
+
+        int a = 2;
+
 
         return mapToDto(productRepository.save(save));
     }
@@ -60,7 +60,8 @@ public class ProductService {
         product.setPrice(dto.getPrice());
         product.setDescription(dto.getDescription());
         product.setDimensions(saveNewDimensions(dto.getDimensions(),product));
-        product.setImages(saveNewImages(dto.getImages(),product));
+        //TODO: KÉPEK SZERKESZTÉSÉT MEGOLDANI A JÖVŐBEN JELENLEG NINCS MEGOLDVA
+        //product.setImages(saveNewImages(dto.getImages(),product));
         product.setCategory(ProductCategory.valueOf(dto.getCategory()));
 
         return mapToDto(productRepository.save(product));
@@ -95,24 +96,30 @@ public class ProductService {
                 dto.getDepthInMetre(),
                 dto.getWeightInKg(),
                 dto.getMaterial(),
-                product
+                product.getID()
         );
+        product.setDimensions(save);
         return dimensionsRepository.save(save);
     }
 
-    private List<ProductImg> saveNewImages(List<ProductImgDto> dtos, Product product){
+    private List<ProductImg> saveNewImages(List<NewImageDto> dtos, Product product){
         List<ProductImg> imgs = new ArrayList<>();
-        for(ProductImgDto dto : dtos){
+        for(NewImageDto dto : dtos){
             ProductImg save = new ProductImg(
                     dto.getURL(),
-                    product
+                    product.getID()
             );
+            product.setImages(imgs);
             imgs.add(productImgRepository.save(save));
         }
+
         return imgs;
     }
 
     private List<ProductImgDto> mapImgToDto(List<ProductImg> imgs){
+        if (imgs == null){
+            return new ArrayList<ProductImgDto>();
+        }
         List<ProductImgDto> productImgDtos = new ArrayList<>();
         for(ProductImg img : imgs){
             productImgDtos.add(
@@ -123,12 +130,16 @@ public class ProductService {
     }
 
     private DimensionDTO mapDimensionToDto(Dimensions dimensions){
-        return DimensionDTO.builder()
+        if (dimensions == null){
+            return new DimensionDTO();
+        }
+        DimensionDTO dimensionDTO = DimensionDTO.builder()
                 .weightInKg(dimensions.getWeightInKg())
                 .depthInMetre(dimensions.getDepthInMetre())
                 .material(dimensions.getMaterial())
                 .widthInMetre(dimensions.getWidthInMetre())
                 .heightInMetre(dimensions.getHeightInMetre())
                 .build();
+        return dimensionDTO;
     }
 }

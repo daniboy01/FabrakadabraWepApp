@@ -1,6 +1,5 @@
 package com.fabrakadabra.webapp.dto;
 
-import com.fabrakadabra.webapp.model.PlayGround;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
