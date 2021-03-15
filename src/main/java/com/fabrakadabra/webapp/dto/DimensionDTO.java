@@ -11,11 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class DimensionDTO {
-    private Long ID;
     private double widthInMetre;
     private double heightInMetre;
     private double depthInMetre;
     private double weightInKg;
     private String material;
-    private Long playGroundID;
 }

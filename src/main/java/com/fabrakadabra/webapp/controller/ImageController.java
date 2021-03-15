@@ -1,15 +1,11 @@
 package com.fabrakadabra.webapp.controller;
 
 import com.fabrakadabra.webapp.config.CrossOriginUrl;
-import com.fabrakadabra.webapp.dto.PlayGroundImgDTO;
-import com.fabrakadabra.webapp.model.PlayGroundImg;
 import com.fabrakadabra.webapp.service.ImageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ImageController {

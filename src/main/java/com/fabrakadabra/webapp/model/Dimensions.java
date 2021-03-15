@@ -23,6 +23,14 @@ public class Dimensions {
     private String material;
 
     @OneToOne
-    private PlayGround playGround;
+    private Product product;
 
+    public Dimensions(double widthInMetre,double heightInMetre,double depthInMetre,double weightInKg,String material, Product product) {
+        this.widthInMetre = widthInMetre;
+        this.heightInMetre = heightInMetre;
+        this.depthInMetre = depthInMetre;
+        this.weightInKg = weightInKg;
+        this.material = material;
+        this.product = product;
+    }
 }

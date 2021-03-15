@@ -2,7 +2,6 @@ package com.fabrakadabra.webapp.controller;
 
 import com.fabrakadabra.webapp.config.CrossOriginUrl;
 import com.fabrakadabra.webapp.dto.DimensionDTO;
-import com.fabrakadabra.webapp.dto.PlayGroundDto;
 import com.fabrakadabra.webapp.service.PlayGroundCustomizationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

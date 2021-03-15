@@ -1,10 +1,8 @@
 package com.fabrakadabra.webapp.service;
 
-import com.fabrakadabra.webapp.dto.PlayGroundImgDTO;
 import com.fabrakadabra.webapp.model.PlayGround;
 import com.fabrakadabra.webapp.model.PlayGroundImg;
 import com.fabrakadabra.webapp.repository.PlayGroundImgRepository;
-import com.fabrakadabra.webapp.repository.PlayGroundRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

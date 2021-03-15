@@ -17,6 +17,7 @@ public class ProductImg {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
     private String URL;
+
     @ManyToOne(cascade = CascadeType.REMOVE)
     private Product product;
 
