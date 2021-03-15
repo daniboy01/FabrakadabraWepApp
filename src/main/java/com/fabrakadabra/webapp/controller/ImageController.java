@@ -28,10 +28,10 @@ public class ImageController {
 //        return ResponseEntity.status(HttpStatus.OK)
 //                .body(imageFile.getOriginalFilename() + " uploaded succesfully!");
 //    }
-    @CrossOrigin(CrossOriginUrl.URl)
-    @PostMapping("/uploadImage/{id}")
-    public ResponseEntity<PlayGroundImgDTO> uploadImage(@RequestBody PlayGroundImgDTO dto, @PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(imageService.saveImage(dto,id));
-    }
+//    @CrossOrigin(CrossOriginUrl.URl)
+//    @PostMapping("/uploadImage/{id}")
+//    public ResponseEntity<PlayGroundImgDTO> uploadImage(@RequestBody PlayGroundImgDTO dto, @PathVariable Long id){
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .body(imageService.saveImage(dto,id));
+//    }
 }

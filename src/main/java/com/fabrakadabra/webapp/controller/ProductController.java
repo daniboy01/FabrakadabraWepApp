@@ -1,5 +1,6 @@
 package com.fabrakadabra.webapp.controller;
 
+import com.fabrakadabra.webapp.dto.CreateProductDto;
 import com.fabrakadabra.webapp.dto.ProductDto;
 import com.fabrakadabra.webapp.model.Product;
 import com.fabrakadabra.webapp.service.ProductService;
@@ -23,7 +24,7 @@ public class ProductController {
     }
 
     @PostMapping("/createNewProduct")
-    public ResponseEntity<ProductDto> createNewProduct(@RequestBody ProductDto dto){
+    public ResponseEntity<ProductDto> createNewProduct(@RequestBody CreateProductDto dto){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(productService.createNewProduct(dto));
     }

@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @Entity
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "termék")
 public class Product {
