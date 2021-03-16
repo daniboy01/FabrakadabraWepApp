@@ -81,9 +81,9 @@ public class WebshopService {
                 .withLocale(Locale.ITALY)
                 .withZone(ZoneId.systemDefault());
 
-        String name = "";
+        List<String> names = new ArrayList<>();
         for(OrderItemDto item : orderDto.getOrderItems()){
-            name += productRepository.findById(item.getId()).get().getName();
+            names.add(productRepository.findById(item.getId()).get().getName());
         }
 
 
@@ -94,7 +94,6 @@ public class WebshopService {
         model.put("PhoneNum",saveCutomer.getPhoneNumber());
         model.put("createdAt",dateFormat.format(saveOrder.getCreatedAt()));
         model.put("firstName",saveCutomer.getFirstName());
-        model.put("itemName",name);
 
         emailService.sendEmail(saveCutomer.getEmail(),"FAbrakadabra",model);
         response.addCookie(new Cookie("cart",null));

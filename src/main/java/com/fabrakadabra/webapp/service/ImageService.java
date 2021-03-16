@@ -26,10 +26,10 @@ public class ImageService  {
         String[] splittedName = imageFile.getOriginalFilename().split("\\.");
         Path path = Paths.get(folder + id + "." + splittedName[1]);
         Files.write(path,bytes);
-        saveImageToProductFileSys(imageFile.getOriginalFilename(),id);
+        saveImageToProductFileSys(id);
     }
 
-    private void saveImageToProductFileSys(String imageName, Long id){
+    private void saveImageToProductFileSys(Long id){
         File file = new File(folder + "/" + id);
         String absolutePath = file.getAbsolutePath();
         ProductImg save = new ProductImg();
@@ -39,6 +39,11 @@ public class ImageService  {
         product.getImages().add(save);
         productImgRepository.save(save);
         productRepository.save(product);
+    }
+
+    public void deleteImageFromFileSys(String name){
+        File file = new File("src/img/" + name);
+        file.delete();
     }
 
     public ProductImgDto saveImage(ProductImgDto dto, Long id){

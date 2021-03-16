@@ -10,6 +10,7 @@ import com.fabrakadabra.webapp.repository.ProductImgRepository;
 import com.fabrakadabra.webapp.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ProductService {
     private ProductRepository productRepository;
     private ProductImgRepository productImgRepository;
     private DimensionsRepository dimensionsRepository;
+    private ImageService imageService;
 
 
     public List<ProductDto> getAll() {
@@ -67,11 +69,13 @@ public class ProductService {
         return mapToDto(productRepository.save(product));
     }
 
+    @Transactional
     public String deleteProduct(ProductDto dto) {
         if (!productRepository.existsById(dto.getID())){
             throw new IllegalArgumentException("There is no product by " + dto.getID());
         }
 
+        imageService.deleteImageFromFileSys(dto.getID()+".jpg");
         productRepository.deleteByID(dto.getID());
 
         return "Product " + dto.getID() + " successfully deleted!";

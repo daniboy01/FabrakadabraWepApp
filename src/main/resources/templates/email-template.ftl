@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Email template</title>
@@ -25,8 +25,8 @@
 
                 <div>
                     <h2>Rendelés #${orderID}</h2>
-                    <h2>Ezt rendelted : ${itemName}</h2>
                 </div>
+
             </td>
         </tr>
         <tr>

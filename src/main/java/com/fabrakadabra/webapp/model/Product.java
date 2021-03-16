@@ -29,7 +29,7 @@ public class Product {
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<ProductImg> images;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Dimensions dimensions;
 
     public Product(String name, String desc, int price, String category, List<ProductImg> imgs, Dimensions dimension) {
