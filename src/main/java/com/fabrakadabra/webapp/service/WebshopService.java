@@ -59,7 +59,6 @@ public class WebshopService {
                 .build();
     }
 
-
     public OrderItemDto[] removeFromCart(HttpServletResponse response, OrderItemDto orderItemDto, String items) {
         OrderItemDto[] dtos = gson.fromJson(items,OrderItemDto[].class);
         for(int i = 0; i < dtos.length; i++ ){
@@ -71,7 +70,6 @@ public class WebshopService {
         response.addCookie(new Cookie("cart",URLEncoder.encode(gson.toJson(dtos))));
         return dtos;
     }
-
 
     public OrderResponse makeOrder(HttpServletResponse response, OrderDto orderDto) {
         Customer saveCutomer = customerRepository.save(mapCustomerDeatailsotoModel(orderDto.getCustomerDetails()));

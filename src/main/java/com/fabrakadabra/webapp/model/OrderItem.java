@@ -22,4 +22,9 @@ public class OrderItem {
     private Instant createdAt;
     @ManyToOne
     private Order order;
+
+    public OrderItem(Long productId){
+        this.productId = productId;
+        this.createdAt = Instant.now();
+    }
 }
