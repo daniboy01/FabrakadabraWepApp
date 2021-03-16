@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -15,5 +14,5 @@ import java.util.UUID;
 public class OrderDto {
     private Long id;
     private List<OrderItemDto> orderItems;
-    private CustomerDto customerDto;
+    private CustomerDetails customerDetails;
 }

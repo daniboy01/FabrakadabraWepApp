@@ -30,7 +30,6 @@ import java.util.Locale;
 @AllArgsConstructor
 public class WebshopService {
     private OrderItemRepository orderItemRepository;
-    //private PlayGroundRepository playGroundRepository;
     private ProductRepository productRepository;
     private OrderRepository orderRepository;
     private CustomerRepository customerRepository;
@@ -39,8 +38,8 @@ public class WebshopService {
 
     public AddedToCartResponse addToShoppingCart(HttpServletResponse response, List<OrderItemDto> orderItemDtos) {
         for (OrderItemDto dto:orderItemDtos){
-            var obj = orderItemRepository.save(mapOrderItemDtoToModel(dto));
-            dto.setId(obj.getId());
+            OrderItem orderItem = orderItemRepository.save(mapOrderItemDtoToModel(dto));
+            dto.setId(orderItem.getId());
         }
         try {
             Cookie cookie = new Cookie("cart", URLEncoder.encode(gson.toJson(orderItemDtos),"UTF-8"));
@@ -51,7 +50,6 @@ public class WebshopService {
 
         return new AddedToCartResponse("OrderItems added to shopping cart!!!");
     }
-
 
     private OrderItem mapOrderItemDtoToModel(OrderItemDto orderItemDto) {
         return OrderItem.builder()
@@ -76,7 +74,7 @@ public class WebshopService {
 
 
     public OrderResponse makeOrder(HttpServletResponse response, OrderDto orderDto) {
-        Customer saveCutomer = customerRepository.save(mapCustomerDtotoModel(orderDto.getCustomerDto()));
+        Customer saveCutomer = customerRepository.save(mapCustomerDeatailsotoModel(orderDto.getCustomerDetails()));
         Order saveOrder = mapOrderDtotoModel(orderDto);
         saveOrder.setCustomer(saveCutomer);
         orderRepository.save(saveOrder);
@@ -102,14 +100,14 @@ public class WebshopService {
 
         emailService.sendEmail(saveCutomer.getEmail(),"FAbrakadabra",model);
         response.addCookie(new Cookie("cart",null));
-        return new OrderResponse("Number " + saveOrder.getID() + " order recieved!",saveOrder.getID());
+        return new OrderResponse(saveOrder.getID(),"Number " + saveOrder.getID() + " order recieved!");
     }
 
     private Order mapOrderDtotoModel(OrderDto dto){
         return Order.builder()
                 .ID(dto.getId())
                 .createdAt(Instant.now())
-                .customer(mapCustomerDtotoModel(dto.getCustomerDto()))
+                .customer(mapCustomerDeatailsotoModel(dto.getCustomerDetails()))
                 .orderItems(mapOrderItemsToModels(dto.getOrderItems()))
                 .build();
     }
@@ -122,14 +120,13 @@ public class WebshopService {
         return items;
     }
 
-    private Customer mapCustomerDtotoModel(CustomerDto customerDto) {
+    private Customer mapCustomerDeatailsotoModel(CustomerDetails customer) {
         return Customer.builder()
-                .address(customerDto.getAddress())
-                .email(customerDto.getEmail())
-                .firstName(customerDto.getFirstName())
-                .lastName(customerDto.getLastName())
-                .phoneNumber(customerDto.getPhoneNumber())
+                .address(customer.getAddress())
+                .email(customer.getEmail())
+                .firstName(customer.getFirstName())
+                .lastName(customer.getLastName())
+                .phoneNumber(customer.getPhoneNumber())
                 .build();
-
     }
 }
