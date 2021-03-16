@@ -32,7 +32,7 @@ public class AdminAuthService {
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
     private final EmailService emailService;
-    private final String BASE_URL = "https://185.203.117.142:8443";
+    private final String BASE_URL = "http://localhost:8080";
 
     @Transactional
     public void signup(AdminRegisterRequest adminRegisterRequest){
