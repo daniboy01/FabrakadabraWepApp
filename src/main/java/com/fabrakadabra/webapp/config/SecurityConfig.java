@@ -32,16 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/adminauth/**")
-                .permitAll()
-                .antMatchers("/api/playground/getAll")
-                .permitAll()
-                .antMatchers("/api/playground/{id}")
-                .permitAll()
-                .antMatchers("/uploadImage/**")
-                .permitAll()
-                .antMatchers("/api/playground/**")
-                .authenticated();
+                .antMatchers("/api/adminauth/**").permitAll()
+                .antMatchers("/api/product/getAll").permitAll()
+                .antMatchers("/api/product/{id}").permitAll()
+                .anyRequest().authenticated();
+
+
         httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 

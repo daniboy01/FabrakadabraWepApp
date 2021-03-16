@@ -23,6 +23,12 @@ public class ProductController {
                 .body(productService.getAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDto> getById(@PathVariable long id){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(productService.getById(id));
+    }
+
     @PostMapping("/createNewProduct")
     public ResponseEntity<ProductDto> createNewProduct(@RequestBody CreateProductDto dto){
         return ResponseEntity.status(HttpStatus.OK)

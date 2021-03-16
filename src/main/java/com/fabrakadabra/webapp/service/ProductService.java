@@ -33,6 +33,14 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    public ProductDto getById(long id) {
+        if(!productRepository.existsById(id)){
+            throw new IllegalArgumentException();
+        }
+
+        return mapToDto(productRepository.findById(id).get());
+    }
+
     public ProductDto createNewProduct(CreateProductDto dto) {
         if (dto == null){
             throw new IllegalArgumentException("Dto is null or empty");
@@ -146,4 +154,6 @@ public class ProductService {
                 .build();
         return dimensionDTO;
     }
+
+
 }
