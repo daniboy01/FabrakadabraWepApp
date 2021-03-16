@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/playground/{id}")
                 .permitAll()
                 .antMatchers("/uploadImage/**")
-                .authenticated()
+                .permitAll()
                 .antMatchers("/api/playground/**")
                 .authenticated();
         httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
