@@ -40,9 +40,9 @@ public class ProductController {
                 .body(productService.updateProduct(dto));
     }
 
-    @PostMapping("/deleteProduct")
-    public ResponseEntity<String> deleteProduct(@RequestBody ProductDto dto){
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK)
-                .body(productService.deleteProduct(dto));
+                .body(productService.deleteProduct(id));
     }
 }

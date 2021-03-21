@@ -39,4 +39,13 @@ public class CategoryService {
                 .name(category.getName())
                 .build();
     }
+
+    public String delete(Long id) {
+        if (!categoryRepository.existsById(id)){
+            return "No category found by id : " + id;
+        }
+        String categoryName = categoryRepository.findByID(id).getName();
+        categoryRepository.deleteById(id);
+        return categoryName + " succesfully deleted";
+    }
 }

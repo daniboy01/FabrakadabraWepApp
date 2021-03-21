@@ -54,9 +54,14 @@ public class ProductService {
         save.setName(dto.getName());
         save.setPrice(dto.getPrice());
         save.setDescription(dto.getDescription());
-        save.setCategory(categoryRepository.findByID(dto.getCategoryID()));
         saveNewDimensions(dto.getDimensions(),save);
         saveNewImages(dto.getImages(), save);
+        if (dto.getCategoryID() == null){
+            save.setCategory(null);
+        }
+        else {
+            save.setCategory(categoryRepository.findByID(dto.getCategoryID()));
+        }
 
         return mapToDto(productRepository.save(save));
     }
@@ -74,33 +79,44 @@ public class ProductService {
         //TODO: KÉPEK SZERKESZTÉSÉT MEGOLDANI A JÖVŐBEN JELENLEG NINCS MEGOLDVA
         //product.setImages(saveNewImages(dto.getImages(),product));
 
-        product.setCategory(categoryRepository.findByID(dto.getCategoryID()));
+        if(dto.getCategoryID() == null){
+            product.setCategory(null);
+        }
+        else {
+            product.setCategory(categoryRepository.findByID(dto.getCategoryID()));
+        }
+
 
         return mapToDto(productRepository.save(product));
     }
 
     @Transactional
-    public String deleteProduct(ProductDto dto) {
-        if (!productRepository.existsById(dto.getID())){
-            throw new IllegalArgumentException("There is no product by " + dto.getID());
+    public String deleteProduct(Long id){
+        if (!productRepository.existsById(id)){
+            return  "There is no product by " + id;
         }
+        imageService.deleteImageFromFileSys(id+".jpg");
+        String productName = productRepository.findById(id).get().getName();
+        productRepository.deleteByID(id);
 
-        imageService.deleteImageFromFileSys(dto.getID()+".jpg");
-        productRepository.deleteByID(dto.getID());
-
-        return "Product " + dto.getID() + " successfully deleted!";
+        return  productName + " successfully deleted!";
     }
 
     private ProductDto mapToDto(Product product) {
-        return ProductDto.builder()
-                .ID(product.getID())
-                .name(product.getName())
-                .price(product.getPrice())
-                .description(product.getDescription())
-                .categoryID(product.getCategory().getID())
-                .images(mapImgToDto(product.getImages()))
-                .dimensions(mapDimensionToDto(product.getDimensions()))
-                .build();
+        ProductDto dto = new ProductDto();
+        dto.setID(product.getID());
+        dto.setName(product.getName());
+        dto.setPrice(product.getPrice());
+        dto.setDescription(product.getDescription());
+        dto.setDimensions(mapDimensionToDto(product.getDimensions()));
+        dto.setImages(mapImgToDto(product.getImages()));
+        if (product.getCategory() == null){
+            dto.setCategoryID(null);
+        }
+        else {
+            dto.setCategoryID(product.getCategory().getID());
+        }
+        return dto;
     }
 
     private Dimensions saveNewDimensions(DimensionDTO dto, Product product){

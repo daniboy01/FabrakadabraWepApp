@@ -28,4 +28,10 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(categoryService.save(dto));
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(categoryService.delete(id));
+    }
 }
