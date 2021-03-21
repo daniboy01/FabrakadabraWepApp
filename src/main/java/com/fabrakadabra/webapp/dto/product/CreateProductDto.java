@@ -17,5 +17,5 @@ public class CreateProductDto {
     private String category;
     private List<NewImageDto> images;
     private DimensionDTO dimensions;
-
+    private Long categoryID;
 }

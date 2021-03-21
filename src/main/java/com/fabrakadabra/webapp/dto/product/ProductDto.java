@@ -21,5 +21,5 @@ public class ProductDto {
     private String category;
     private List<ProductImgDto> images;
     private DimensionDTO dimensions;
-    private CategoryDto categoryDto;
+    private Long categoryID;
 }

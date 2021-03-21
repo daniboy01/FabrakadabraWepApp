@@ -7,7 +7,6 @@ import com.fabrakadabra.webapp.dto.product.ProductDto;
 import com.fabrakadabra.webapp.dto.product.ProductImgDto;
 import com.fabrakadabra.webapp.model.Dimensions;
 import com.fabrakadabra.webapp.model.Product;
-import com.fabrakadabra.webapp.model.ProductCategory;
 import com.fabrakadabra.webapp.model.ProductImg;
 import com.fabrakadabra.webapp.repository.CategoryRepository;
 import com.fabrakadabra.webapp.repository.DimensionsRepository;
@@ -16,7 +15,6 @@ import com.fabrakadabra.webapp.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,12 +54,9 @@ public class ProductService {
         save.setName(dto.getName());
         save.setPrice(dto.getPrice());
         save.setDescription(dto.getDescription());
-        // TODO
-        //save.setCategory(ProductCategory.valueOf(dto.getCategory()));
+        save.setCategory(categoryRepository.findByID(dto.getCategoryID()));
         saveNewDimensions(dto.getDimensions(),save);
         saveNewImages(dto.getImages(), save);
-
-
 
         return mapToDto(productRepository.save(save));
     }
@@ -79,8 +74,7 @@ public class ProductService {
         //TODO: KÉPEK SZERKESZTÉSÉT MEGOLDANI A JÖVŐBEN JELENLEG NINCS MEGOLDVA
         //product.setImages(saveNewImages(dto.getImages(),product));
 
-        //TODO
-        //product.setCategory(ProductCategory.valueOf(dto.getCategory()));
+        product.setCategory(categoryRepository.findByID(dto.getCategoryID()));
 
         return mapToDto(productRepository.save(product));
     }
@@ -103,7 +97,7 @@ public class ProductService {
                 .name(product.getName())
                 .price(product.getPrice())
                 .description(product.getDescription())
-                .category(product.getCategory().toString())
+                .categoryID(product.getCategory().getID())
                 .images(mapImgToDto(product.getImages()))
                 .dimensions(mapDimensionToDto(product.getDimensions()))
                 .build();
@@ -162,6 +156,5 @@ public class ProductService {
                 .build();
         return dimensionDTO;
     }
-
 
 }
