@@ -24,7 +24,6 @@ public class Product {
     private String description;
     private int price;
     private Instant createdAt;
-    private ProductCategory category;
 
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<ProductImg> images;
@@ -32,13 +31,6 @@ public class Product {
     @OneToOne(cascade = CascadeType.REMOVE)
     private Dimensions dimensions;
 
-    public Product(String name, String desc, int price, String category, List<ProductImg> imgs, Dimensions dimension) {
-        this.name = name;
-        this.description = desc;
-        this.price = price;
-        this.category = ProductCategory.valueOf(category);
-        this.images = imgs;
-        this.dimensions = dimension;
-        this.createdAt = Instant.now();
-    }
+    @ManyToOne
+    private Category category;
 }

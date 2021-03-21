@@ -1,8 +1,7 @@
 package com.fabrakadabra.webapp.controller;
 
-import com.fabrakadabra.webapp.dto.CreateProductDto;
-import com.fabrakadabra.webapp.dto.ProductDto;
-import com.fabrakadabra.webapp.model.Product;
+import com.fabrakadabra.webapp.dto.product.CreateProductDto;
+import com.fabrakadabra.webapp.dto.product.ProductDto;
 import com.fabrakadabra.webapp.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

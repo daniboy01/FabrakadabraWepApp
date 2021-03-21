@@ -1,6 +1,6 @@
 package com.fabrakadabra.webapp.service;
 
-import com.fabrakadabra.webapp.dto.*;
+import com.fabrakadabra.webapp.dto.order.*;
 import com.fabrakadabra.webapp.model.Customer;
 import com.fabrakadabra.webapp.model.Order;
 import com.fabrakadabra.webapp.model.OrderItem;
@@ -14,8 +14,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;

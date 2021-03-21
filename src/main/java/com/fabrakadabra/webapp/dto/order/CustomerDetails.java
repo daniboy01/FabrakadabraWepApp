@@ -1,4 +1,4 @@
-package com.fabrakadabra.webapp.dto;
+package com.fabrakadabra.webapp.dto.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerDto {
-    private Long ID;
+public class CustomerDetails {
     private String firstName;
     private String lastName;
     private String email;

@@ -1,4 +1,4 @@
-package com.fabrakadabra.webapp.dto;
+package com.fabrakadabra.webapp.dto.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

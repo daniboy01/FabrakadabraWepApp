@@ -1,4 +1,4 @@
-package com.fabrakadabra.webapp.dto;
+package com.fabrakadabra.webapp.dto.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderItemDto {
-    private Long id;
-    private Long productId;
+public class AddedToCartResponse {
+    private String responseMessage;
 }

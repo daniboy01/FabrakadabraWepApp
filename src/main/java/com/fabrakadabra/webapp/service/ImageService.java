@@ -1,6 +1,6 @@
 package com.fabrakadabra.webapp.service;
 
-import com.fabrakadabra.webapp.dto.ProductImgDto;
+import com.fabrakadabra.webapp.dto.product.ProductImgDto;
 import com.fabrakadabra.webapp.model.Product;
 import com.fabrakadabra.webapp.model.ProductImg;
 import com.fabrakadabra.webapp.repository.ProductImgRepository;

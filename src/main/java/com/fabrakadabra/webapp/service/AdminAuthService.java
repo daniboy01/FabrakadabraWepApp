@@ -1,9 +1,9 @@
 package com.fabrakadabra.webapp.service;
 
-import com.fabrakadabra.webapp.dto.AdminLoginRequest;
-import com.fabrakadabra.webapp.dto.AdminRegisterRequest;
-import com.fabrakadabra.webapp.dto.AuthenticationResponse;
-import com.fabrakadabra.webapp.dto.RefreshTokenRequest;
+import com.fabrakadabra.webapp.dto.security.AdminLoginRequest;
+import com.fabrakadabra.webapp.dto.security.AdminRegisterRequest;
+import com.fabrakadabra.webapp.dto.security.AuthenticationResponse;
+import com.fabrakadabra.webapp.dto.security.RefreshTokenRequest;
 import com.fabrakadabra.webapp.exception.SpringFabrakadabraException;
 import com.fabrakadabra.webapp.model.Admin;
 import com.fabrakadabra.webapp.model.VerificationToken;

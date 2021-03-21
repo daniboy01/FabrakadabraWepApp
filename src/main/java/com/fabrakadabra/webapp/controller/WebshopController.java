@@ -1,9 +1,9 @@
 package com.fabrakadabra.webapp.controller;
 import com.fabrakadabra.webapp.config.CrossOriginUrl;
-import com.fabrakadabra.webapp.dto.AddedToCartResponse;
-import com.fabrakadabra.webapp.dto.OrderDto;
-import com.fabrakadabra.webapp.dto.OrderItemDto;
-import com.fabrakadabra.webapp.dto.OrderResponse;
+import com.fabrakadabra.webapp.dto.order.AddedToCartResponse;
+import com.fabrakadabra.webapp.dto.order.OrderDto;
+import com.fabrakadabra.webapp.dto.order.OrderItemDto;
+import com.fabrakadabra.webapp.dto.order.OrderResponse;
 import com.fabrakadabra.webapp.service.WebshopService;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;

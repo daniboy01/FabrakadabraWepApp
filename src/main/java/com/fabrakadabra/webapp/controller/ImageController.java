@@ -1,7 +1,5 @@
 package com.fabrakadabra.webapp.controller;
 
-import com.fabrakadabra.webapp.config.CrossOriginUrl;
-import com.fabrakadabra.webapp.dto.ProductImgDto;
 import com.fabrakadabra.webapp.service.ImageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

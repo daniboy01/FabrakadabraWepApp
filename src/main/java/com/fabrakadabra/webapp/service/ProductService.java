@@ -1,10 +1,15 @@
 package com.fabrakadabra.webapp.service;
 
-import com.fabrakadabra.webapp.dto.*;
+import com.fabrakadabra.webapp.dto.dimension.DimensionDTO;
+import com.fabrakadabra.webapp.dto.product.CreateProductDto;
+import com.fabrakadabra.webapp.dto.product.NewImageDto;
+import com.fabrakadabra.webapp.dto.product.ProductDto;
+import com.fabrakadabra.webapp.dto.product.ProductImgDto;
 import com.fabrakadabra.webapp.model.Dimensions;
 import com.fabrakadabra.webapp.model.Product;
 import com.fabrakadabra.webapp.model.ProductCategory;
 import com.fabrakadabra.webapp.model.ProductImg;
+import com.fabrakadabra.webapp.repository.CategoryRepository;
 import com.fabrakadabra.webapp.repository.DimensionsRepository;
 import com.fabrakadabra.webapp.repository.ProductImgRepository;
 import com.fabrakadabra.webapp.repository.ProductRepository;
@@ -23,6 +28,7 @@ public class ProductService {
     private ProductRepository productRepository;
     private ProductImgRepository productImgRepository;
     private DimensionsRepository dimensionsRepository;
+    private CategoryRepository categoryRepository;
     private ImageService imageService;
 
 
@@ -50,11 +56,11 @@ public class ProductService {
         save.setName(dto.getName());
         save.setPrice(dto.getPrice());
         save.setDescription(dto.getDescription());
-        save.setCategory(ProductCategory.valueOf(dto.getCategory()));
+        // TODO
+        //save.setCategory(ProductCategory.valueOf(dto.getCategory()));
         saveNewDimensions(dto.getDimensions(),save);
         saveNewImages(dto.getImages(), save);
 
-        int a = 2;
 
 
         return mapToDto(productRepository.save(save));
@@ -72,7 +78,9 @@ public class ProductService {
         product.setDimensions(saveNewDimensions(dto.getDimensions(),product));
         //TODO: KÉPEK SZERKESZTÉSÉT MEGOLDANI A JÖVŐBEN JELENLEG NINCS MEGOLDVA
         //product.setImages(saveNewImages(dto.getImages(),product));
-        product.setCategory(ProductCategory.valueOf(dto.getCategory()));
+
+        //TODO
+        //product.setCategory(ProductCategory.valueOf(dto.getCategory()));
 
         return mapToDto(productRepository.save(product));
     }

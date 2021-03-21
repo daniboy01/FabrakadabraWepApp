@@ -1,16 +1,15 @@
 package com.fabrakadabra.webapp.controller;
 
 import com.fabrakadabra.webapp.config.CrossOriginUrl;
-import com.fabrakadabra.webapp.dto.AdminLoginRequest;
-import com.fabrakadabra.webapp.dto.AdminRegisterRequest;
-import com.fabrakadabra.webapp.dto.AuthenticationResponse;
-import com.fabrakadabra.webapp.dto.RefreshTokenRequest;
+import com.fabrakadabra.webapp.dto.security.AdminLoginRequest;
+import com.fabrakadabra.webapp.dto.security.AdminRegisterRequest;
+import com.fabrakadabra.webapp.dto.security.AuthenticationResponse;
+import com.fabrakadabra.webapp.dto.security.RefreshTokenRequest;
 import com.fabrakadabra.webapp.service.AdminAuthService;
 import com.fabrakadabra.webapp.service.RefreshTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

@@ -1,4 +1,4 @@
-package com.fabrakadabra.webapp.dto;
+package com.fabrakadabra.webapp.dto.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

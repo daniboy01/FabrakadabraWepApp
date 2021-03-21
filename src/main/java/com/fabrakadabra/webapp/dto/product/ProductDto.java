@@ -1,15 +1,12 @@
-package com.fabrakadabra.webapp.dto;
+package com.fabrakadabra.webapp.dto.product;
 
-import com.fabrakadabra.webapp.model.Dimensions;
-import com.fabrakadabra.webapp.model.Product;
-import com.fabrakadabra.webapp.model.ProductCategory;
-import com.fabrakadabra.webapp.model.ProductImg;
+import com.fabrakadabra.webapp.dto.category.CategoryDto;
+import com.fabrakadabra.webapp.dto.dimension.DimensionDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -24,4 +21,5 @@ public class ProductDto {
     private String category;
     private List<ProductImgDto> images;
     private DimensionDTO dimensions;
+    private CategoryDto categoryDto;
 }

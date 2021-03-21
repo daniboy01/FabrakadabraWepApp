@@ -1,4 +1,4 @@
-package com.fabrakadabra.webapp.dto;
+package com.fabrakadabra.webapp.dto.dimension;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,5 +1,6 @@
-package com.fabrakadabra.webapp.dto;
+package com.fabrakadabra.webapp.dto.product;
 
+import com.fabrakadabra.webapp.dto.dimension.DimensionDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,5 @@ public class CreateProductDto {
     private String category;
     private List<NewImageDto> images;
     private DimensionDTO dimensions;
+
 }
