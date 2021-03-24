@@ -25,4 +25,5 @@ public class Order {
     private Instant createdAt;
     @OneToOne
     private Customer customer;
+    private OrderStatus status;
 }

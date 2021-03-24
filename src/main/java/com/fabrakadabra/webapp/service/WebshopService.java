@@ -4,6 +4,7 @@ import com.fabrakadabra.webapp.dto.order.*;
 import com.fabrakadabra.webapp.model.Customer;
 import com.fabrakadabra.webapp.model.Order;
 import com.fabrakadabra.webapp.model.OrderItem;
+import com.fabrakadabra.webapp.model.OrderStatus;
 import com.fabrakadabra.webapp.repository.*;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
@@ -79,10 +80,10 @@ public class WebshopService {
                 .withLocale(Locale.ITALY)
                 .withZone(ZoneId.systemDefault());
 
-        List<String> names = new ArrayList<>();
-        for(OrderItemDto item : orderDto.getOrderItems()){
-            names.add(productRepository.findById(item.getId()).get().getName());
-        }
+//        List<String> names = new ArrayList<>();
+//        for(OrderItemDto item : orderDto.getOrderItems()){
+//            names.add(productRepository.findById(item.getId()).get().);
+//        }
 
 
         HashMap<String, Object> model = new HashMap<>();
@@ -104,6 +105,7 @@ public class WebshopService {
                 .createdAt(Instant.now())
                 .customer(mapCustomerDeatailsotoModel(dto.getCustomerDetails()))
                 .orderItems(mapOrderItemsToModels(dto.getOrderItems()))
+                .status(OrderStatus.FELDOLGOZATLAN)
                 .build();
     }
 

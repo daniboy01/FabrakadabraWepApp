@@ -102,7 +102,7 @@ public class ProductService {
         return  productName + " successfully deleted!";
     }
 
-    private ProductDto mapToDto(Product product) {
+    public ProductDto mapToDto(Product product) {
         ProductDto dto = new ProductDto();
         dto.setID(product.getID());
         dto.setName(product.getName());
