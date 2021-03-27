@@ -31,6 +31,6 @@ public class Product {
     @OneToOne(cascade = CascadeType.REMOVE)
     private Dimensions dimensions;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     private Category category;
 }

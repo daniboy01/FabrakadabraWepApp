@@ -3,7 +3,9 @@ package com.fabrakadabra.webapp.service;
 import com.fabrakadabra.webapp.dto.category.CategoryDto;
 import com.fabrakadabra.webapp.dto.category.CreateCategoryDto;
 import com.fabrakadabra.webapp.model.Category;
+import com.fabrakadabra.webapp.model.Product;
 import com.fabrakadabra.webapp.repository.CategoryRepository;
+import com.fabrakadabra.webapp.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CategoryService {
     private CategoryRepository categoryRepository;
+    private ProductRepository productRepository;
 
     public CategoryDto save(CreateCategoryDto dto){
         if (categoryRepository.existsByName(dto.getName())){
@@ -44,7 +47,16 @@ public class CategoryService {
         if (!categoryRepository.existsById(id)){
             return "No category found by id : " + id;
         }
-        String categoryName = categoryRepository.findByID(id).getName();
+
+        Category category = categoryRepository.findByID(id);
+        String categoryName = category.getName();
+
+        List<Product> productsWithCategory = productRepository.findByCategory(category);
+
+        for (Product p : productsWithCategory){
+            p.setCategory(null);
+        }
+
         categoryRepository.deleteById(id);
         return categoryName + " succesfully deleted";
     }
