@@ -1,8 +1,7 @@
 package com.fabrakadabra.webapp.controller;
 
 import com.fabrakadabra.webapp.service.ImageService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +14,6 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    //@CrossOrigin(CrossOriginUrl.URl)
     @PostMapping("/uploadImage/{id}")
     public ResponseEntity<String> uploadImage(@RequestParam MultipartFile imageFile, @PathVariable Long id){
         try {
@@ -28,10 +26,6 @@ public class ImageController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(imageFile.getOriginalFilename() + " uploaded succesfully!");
     }
-//    //@CrossOrigin(CrossOriginUrl.URl)
-//    @PostMapping("/uploadImage/{id}")
-//    public ResponseEntity<ProductImgDto> uploadImage(@RequestBody ProductImgDto dto, @PathVariable Long id){
-//        return ResponseEntity.status(HttpStatus.OK)
-//                .body(imageService.saveImage(dto,id));
-//    }
+
+
 }

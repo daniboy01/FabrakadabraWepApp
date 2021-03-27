@@ -16,7 +16,7 @@ import java.util.List;
 public class OrderController {
     private OrderService orderService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<OrderDetails>> getOrder(){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(orderService.getAll());
@@ -28,7 +28,7 @@ public class OrderController {
                 .body(orderService.getAllByStatus(status));
     }
 
-    @PutMapping()
+    @PutMapping("/update")
     public ResponseEntity<OrderDetails> setStatus(@RequestBody OrderStatusDto dto){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(orderService.setOrderStatus(dto));
